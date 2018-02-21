@@ -63,9 +63,9 @@ final public class YPDrawSignatureView: UIView {
     
     // MARK: - Private properties
     fileprivate var path = UIBezierPath()
+    fileprivate var coordinates = [[String:Int]]()
     fileprivate var points = [CGPoint](repeating: CGPoint(), count: 5)
     fileprivate var controlPoint = 0
-	fileprivate var coordinates = [[String:Int]]()
     
     // MARK: - Init
     required public init?(coder aDecoder: NSCoder) {
