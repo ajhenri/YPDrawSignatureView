@@ -63,6 +63,7 @@ final public class YPDrawSignatureView: UIView {
     
     // MARK: - Private properties
     fileprivate var path = UIBezierPath()
+	fileprivate var coordinates = [[String:Int]]()
     fileprivate var points = [CGPoint](repeating: CGPoint(), count: 5)
     fileprivate var controlPoint = 0
     
@@ -112,6 +113,10 @@ final public class YPDrawSignatureView: UIView {
                 path.move(to: points[0])
                 path.addCurve(to: points[3], controlPoint1: points[1], controlPoint2: points[2])
                 
+                let coordSet = ["lx": Int(points[0].x), "ly": Int(points[0].y),
+                                "mx": Int(points[0].x), "my": Int(points[0].y)];
+                self.coordinates.append(coordSet);
+
                 setNeedsDisplay()
                 points[0] = points[3]
                 points[1] = points[4]
@@ -173,6 +178,11 @@ final public class YPDrawSignatureView: UIView {
         scaledRect.size.width *= factor
         scaledRect.size.height *= factor
         return scaledRect
+    }
+
+    // Retrieves signature (x,y) coordinates.
+    public func getSVGCoordinates() -> Array<[String:Int]> {
+        return self.coordinates;
     }
     
     // Saves the Signature as a Vector PDF Data blob
